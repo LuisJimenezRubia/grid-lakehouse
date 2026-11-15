@@ -1,0 +1,274 @@
+{
+  "generated_at": "2026-11-15T16:42:38",
+  "data_range": [
+    "2025-10-01",
+    "2026-10-12"
+  ],
+  "answers": {
+    "N01": {
+      "question": "What was the average Belgian day-ahead price in January 2026?",
+      "rows": [
+        {
+          "avg_price_eur_mwh": 108.52
+        }
+      ]
+    },
+    "N02": {
+      "question": "What was the highest Belgian day-ahead quarter-hour price in the dataset, and when did it happen (Brussels time)?",
+      "rows": [
+        {
+          "price_eur_mwh": 1038.25,
+          "interval_start_local": "2026-06-24T20:45:00"
+        }
+      ]
+    },
+    "N03": {
+      "question": "¿Cuántos cuartos de hora tuvieron precio day-ahead negativo en Bélgica en mayo de 2026?",
+      "rows": [
+        {
+          "negative_quarters": 225
+        }
+      ]
+    },
+    "N04": {
+      "question": "Which bidding zone had the lowest average day-ahead price over the whole period, and what was it?",
+      "rows": [
+        {
+          "bidding_zone": "FR",
+          "avg_price_eur_mwh": 79.0
+        }
+      ]
+    },
+    "N05": {
+      "question": "What was the average absolute price spread between Belgium and the Netherlands in March 2026?",
+      "rows": [
+        {
+          "avg_abs_spread_eur_mwh": 7.26
+        }
+      ]
+    },
+    "N06": {
+      "question": "In July 2026, in what share of quarter-hours did Belgian and French prices converge?",
+      "rows": [
+        {
+          "pct_price_converged": 20.6
+        }
+      ]
+    },
+    "N28": {
+      "question": "In 2026, how did the average Belgian day-ahead price on weekends compare with weekdays?",
+      "rows": [
+        {
+          "is_weekend": false,
+          "avg_price_eur_mwh": 118.78
+        },
+        {
+          "is_weekend": true,
+          "avg_price_eur_mwh": 86.48
+        }
+      ]
+    },
+    "N29": {
+      "question": "In June 2026, which hour of the day (Brussels time) had the lowest average Belgian day-ahead price?",
+      "rows": [
+        {
+          "hour_brussels": 13,
+          "avg_price_eur_mwh": 41.46
+        }
+      ]
+    },
+    "N30": {
+      "question": "On how many days in 2026 were Belgian and Dutch prices equal in every quarter-hour of the day?",
+      "rows": [
+        {
+          "fully_converged_days": 0
+        }
+      ]
+    },
+    "N07": {
+      "question": "In the first quarter of 2026, was Belgium on average a net exporter or importer towards France, and by how many MW?",
+      "rows": [
+        {
+          "avg_net_export_mw": -1311.5
+        }
+      ]
+    },
+    "N08": {
+      "question": "How much energy (GWh) did Belgium export net across all its borders from 1 January to 12 October 2026?",
+      "rows": [
+        {
+          "net_export_gwh": -20713.5
+        }
+      ]
+    },
+    "N17": {
+      "question": "On the Belgium-Netherlands border, what share of the quarter-hours with a meaningful price signal had physical flow running against the price?",
+      "rows": [
+        {
+          "pct_against_price": 68.8
+        }
+      ]
+    },
+    "N18": {
+      "question": "Which Belgian border has the highest share of physical flow running against the price signal?",
+      "rows": [
+        {
+          "neighbour": "NL",
+          "pct_against_price": 68.8
+        }
+      ]
+    },
+    "N19": {
+      "question": "What was the average unscheduled flow on the Belgium-France border over the whole period?",
+      "rows": [
+        {
+          "avg_unscheduled_flow_mw": 299.1
+        }
+      ]
+    },
+    "N09": {
+      "question": "What was the peak Belgian load in winter 2025-26 (December to February), and when?",
+      "rows": [
+        {
+          "load_mw": 13611.9,
+          "interval_start_local": "2026-01-07T11:45:00"
+        }
+      ]
+    },
+    "N10": {
+      "question": "Which month had the highest average solar generation in Belgium?",
+      "rows": [
+        {
+          "month": "2026-07-01",
+          "avg_solar_mw": 2230.7
+        }
+      ]
+    },
+    "N11": {
+      "question": "What was the maximum wind output measured in Belgium, and when?",
+      "rows": [
+        {
+          "wind_mw": 5031.04,
+          "interval_start_local": "2026-02-28T13:30:00"
+        }
+      ]
+    },
+    "N12": {
+      "question": "What was the lowest residual load (load minus wind and solar) in Belgium, and when?",
+      "rows": [
+        {
+          "residual_load_mw": -823.8510000000006,
+          "interval_start_local": "2026-04-28T14:45:00"
+        }
+      ]
+    },
+    "N13": {
+      "question": "On average, how accurate was Elia's day-ahead load forecast over the whole period (MAPE)?",
+      "rows": [
+        {
+          "avg_daily_mape_pct": 3.28
+        }
+      ]
+    },
+    "N14": {
+      "question": "In which month was Elia's day-ahead solar forecast least accurate (highest average MAE)?",
+      "rows": [
+        {
+          "month": "2026-05-01",
+          "avg_mae_mw": 228.8
+        }
+      ]
+    },
+    "N27": {
+      "question": "¿Cuántos cuartos de hora tuvieron los días de mercado del 26/10/2025 y del 29/03/2026?",
+      "rows": [
+        {
+          "market_date": "2025-10-26",
+          "quarters_in_day": 100
+        },
+        {
+          "market_date": "2026-03-29",
+          "quarters_in_day": 92
+        }
+      ]
+    },
+    "N15": {
+      "question": "How many border-days were flagged as a relevant deviation between ENTSO-E and Elia, and which border had the most?",
+      "rows": [
+        {
+          "neighbour": "NL",
+          "relevant_days": 56,
+          "total_relevant_border_days": 59
+        }
+      ]
+    },
+    "N16": {
+      "question": "On how many days was the Netherlands border compared at hourly resolution because ENTSO-E published hourly values?",
+      "rows": [
+        {
+          "hourly_days": 272
+        }
+      ]
+    },
+    "N20": {
+      "question": "Which Core TSO had the lowest share of CNEC-hours meeting the minRAM target over the whole period?",
+      "rows": [
+        {
+          "tso": "50HERTZ",
+          "pct_meets_target": 80.7
+        }
+      ]
+    },
+    "N21": {
+      "question": "Quel pourcentage des heures-CNEC d'Elia respecte l'objectif de minRAM sur l'ensemble de la période ?",
+      "rows": [
+        {
+          "pct_meets_target": 99.6
+        }
+      ]
+    },
+    "N22": {
+      "question": "Across all Core TSOs, what share of CNEC-hours met the minRAM target?",
+      "rows": [
+        {
+          "pct_meets_target": 92.6
+        }
+      ]
+    },
+    "N23": {
+      "question": "Which Elia CNEC limited the Core market most often?",
+      "rows": [
+        {
+          "cnec_name": "External Constraint BE_AL_import",
+          "quarters_active": 7810
+        }
+      ]
+    },
+    "N24": {
+      "question": "Which CNEC was the most costly bottleneck in Core (highest sum of shadow prices), and which TSO operates it?",
+      "rows": [
+        {
+          "tso": "RTE",
+          "cnec_name": "L 400kV N0 2 CREYS-ST-VULBAS-OUEST",
+          "sum_shadow_price_eur_mw": 4588259.0
+        }
+      ]
+    },
+    "N25": {
+      "question": "In what share of CNEC-hours did Elia need AMR to reach the minRAM target?",
+      "rows": [
+        {
+          "pct_with_amr": 12.3
+        }
+      ]
+    },
+    "N26": {
+      "question": "How many distinct Elia critical network elements appear in the final flow-based domain?",
+      "rows": [
+        {
+          "distinct_cnes": 33
+        }
+      ]
+    }
+  }
+}
