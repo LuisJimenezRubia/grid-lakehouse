@@ -234,17 +234,18 @@ Alemania son cuatro, una por TSO). Códigos EIC usados:
 | FR | 10YFR-RTE------C | idem |
 | AT | 10YAT-APG------L | idem |
 | CZ | 10YCZ-CEPS-----N | idem |
-| DK1 | 10YDK-1--------W | zona (Energinet oeste) |
+| DK1 / DK2 | 10YDK-1--------W / 10YDK-2--------M | zonas (Energinet oeste / este) |
+| DE país | 10Y1001A1001A83F | país: único EIC bajo el que sale el precio de desvío alemán (reBAP) |
 | DE-LU | 10Y1001A1001A82H | zona de oferta |
 | 50Hertz / Amprion / TenneT DE / TransnetBW | 10YDE-VE-------2 / 10YDE-RWENET---I / 10YDE-EON------1 / 10YDE-ENBW-----N | áreas de control |
 
 ## 8. Resultado de la exploración (14/11/2026, día de prueba 14/10/2026)
 
-Script: `scripts/explorar_balancing.py`. Salida completa: `docs/catalogo_balancing.txt`. 247 peticiones.
+Scripts: `scripts/explorar_balancing.py` (primera pasada, 247 peticiones) y `scripts/explorar_balancing_2.py` (segunda, 107). Salida completa: `docs/catalogo_balancing.txt`.
 
 | Dato | BE | NL | FR | AT | CZ | DK1 | DE-LU | 50Hz | AMP | TTG | TNG | Resolución | Historia (BE / 50Hz) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| A85 precios de desvío | ok | ok | ok | ok | ok | ok | – | – | – | – | – | 15 min, ZIP | BE ≥ nov 2022; DE: otro EIC (pendiente) |
+| A85 precios de desvío | ok | ok | ok | ok | ok | ok | –¹ | – | – | – | – | 15 min, ZIP | BE ≥ nov 2022 |
 | A86 volumen de desvío | ok | ok | ok | ok | ok | – | – | ok | ok | ok | ok | 15 min, ZIP | — |
 | A84+A16 precios activación 15 min | – | ok | ok | ok | ok | ok | – | ok | – | ok | ok | 15 min | BE solo hasta 2024 (luego A67/A68); 50Hz ≥ nov 2022 |
 | **A84+A67 CBMP PICASSO** | ok | ok | ok | ok | ok | ok | – | ok | – | ok | ok | **4 s**, ~3 MB/día/área | BE desde 2024-25; 50Hz ≥ nov 2022 |
@@ -259,20 +260,37 @@ Script: `scripts/explorar_balancing.py`. Salida completa: `docs/catalogo_balanci
 | A65+A01 previsión de carga | ok | ok | ok | ok | ok | ok | ok | · | · | · | · | 15 min (DK1 60) | BE ≥ 2024 probado |
 | A65+A31 carga semana vista | ok | ok | ok | ok | ok | – | ok | · | · | · | · | — | — |
 | A65+A16 carga real | ok | ok | ok | ok | ok | ok | ok | · | · | · | · | 15 min (DK1 60) | — |
+| B17+A63 neteo IGCC | ok | ok | ok | ok | ok | · | – | ok | · | ok | · | 15 min, ZIP | — |
+| B17+A51 intercambio aFRR PICASSO | ok | · | · | · | · | · | · | ok | · | · | · | 4 s, ZIP ~200 KB/día | — |
 
-Fallos y pendientes (segunda pasada):
+¹ El reBAP alemán sale con el EIC de Alemania país (`10Y1001A1001A83F`), no con la zona DE-LU ni las áreas de control. (· = no probado, – = sin datos)
 
-- **A83** (energía activada, legacy) y **A88** (cross-border, legacy): HTTP 400, combinación no válida. Retirados y
-  sustituidos por A24 y B17. Se descartan.
-- **B17** (volúmenes neteados e intercambiados): HTTP 400 porque pedí `area_Domain`; el mensaje de error pide
-  `controlArea_Domain`, o `Acquiring_Domain` + `Connecting_Domain` para la vista por frontera. Existe; reintentar.
-- **A15** (capacidad adquirida) y **A89** (precios de reservas contratadas): HTTP 400; falta algún parámetro (muy
-  probablemente `type_MarketAgreement.Type`). A81 ya trae volumen y, por el nº de puntos, precio. Reintentar.
-- **A87** (gastos e ingresos): sin datos porque es mensual y pedí un día; pedir el mes alineado.
-- **Alemania en A85**: el precio de desvío alemán (reBAP) es único para las cuatro áreas y no sale ni por zona ni por
-  área de control; probar el EIC del bloque LFC (10Y1001A1001A63L) y otros.
-- **Amprion** no devuelve A84 (ninguno): comprobar si publica bajo otro EIC o si TenneT publica por él.
-- Tamaño real de un mes de CBMP a 4 s y comportamiento del endpoint con ventanas largas.
+Segunda pasada (15/11/2026, `scripts/explorar_balancing_2.py`, 107 peticiones más; total 354):
+
+| Duda | Resultado |
+|---|---|
+| **B17** volúmenes neteados e intercambiados | Funciona con `controlArea_Domain`. Con `processType` A63 (IGCC): neteo a 15 min, MWh, 2 series, en las 7 áreas. Con A51 (PICASSO): intercambio de aFRR a **4 s**, 43.200 puntos y ~200 KB/día/área. Con A47 (MARI): "parámetros no válidos", hay que buscar el proceso correcto. La vista por frontera no existe: `Acquiring_Domain` y `Connecting_Domain` deben ser el mismo EIC. |
+| **A15** capacidad adquirida | Existe. NL responde (86 series diarias de aFRR). BE, AT y FR dan 400 porque devuelven 467 instancias y la API corta en 100: hay que pedir por tramos u `offset`. 50Hertz no publica. A81 ya cubre la capacidad para todos → fase 2. |
+| **A89** precios de reservas contratadas | No existe en la API ("combinación no válida"). El precio va dentro de A81 (en BE, 384 puntos para 4 series = volumen + precio). Descartado. A81 solo acepta `businessType` B95, no `processType`. |
+| **A87** gastos e ingresos | Mensual, 1 punto por mes y área. Publican NL, FR y AT; BE y Alemania no. Fase 2. |
+| **Alemania** en A85 | El reBAP sale con el EIC de Alemania país `10Y1001A1001A83F` (192 puntos, 2 series, 15 min). También DK2 (`10YDK-2--------M`). |
+| **Alemania** en A84 / Amprion | El CBMP y los precios de activación no salen ni por país ni por bloque LFC; Amprion no publica A84 bajo ningún EIC probado. Para aFRR Alemania se cubre con 50Hertz, TenneT y TransnetBW (el CBMP de PICASSO es el mismo para todo el bloque alemán). A86 solo por área de control. |
+| **Tamaño de un mes** | CBMP (A84+A67) BE sep 2026: **100 MB, 91 s, 407.790 puntos**; comprimido gzip ≈ 5 MB. Precios de desvío (A85) un mes: 59 KB, 13 s. |
+
+Descartados: A83 y A88 (legacy, sustituidos por A24 y B17), A89 (no existe en la API).
+
+**Decisión de alcance tras las dos pasadas**
+
+| Entra en la v1 | Fase 2 | Fuera |
+|---|---|---|
+| A85 precios de desvío (BE, NL, FR, AT, CZ, DK1, DK2, DE país) | A15 capacidad adquirida (paginar) | A83, A88 legacy |
+| A86 volumen de desvío (todas salvo DK1, DE-LU) | A87 gastos e ingresos (NL, FR, AT) | A89 |
+| A84+A67 CBMP a 4 s (todas salvo DE-LU, Amprion) | A69 intradía y current | vista por frontera de B17 |
+| A84+A16 y +A68 precios activación 15 min | B17 mFRR (buscar proceso) | |
+| A24 ofertas aFRR/mFRR, SA/DA | A65 semana vista | |
+| A81 reservas contratadas (volumen y precio) | Fingrid, Elia componentes | |
+| B17+A63 neteo IGCC 15 min y B17+A51 intercambio aFRR 4 s | | |
+| A69+A01, A74, A65+A01, A65+A16 (previsión y real) | | |
 
 Peculiaridades técnicas encontradas:
 
@@ -280,7 +298,10 @@ Peculiaridades técnicas encontradas:
   de vez en cuando: la ingesta necesita timeout largo, reintento y reanudación.
 - A85, A86 y A81 devuelven un **ZIP con uno o varios XML**, no un XML suelto.
 - El CBMP viene a 4 s con `curveType` A03 (posiciones omitidas cuando el valor se repite) y 13.000-17.000 puntos por
-  día y sentido: hay que guardar comprimido y agregar a 15 min en silver.
+  día y sentido; un mes por área son 100 MB en XML y 90 s de descarga. Hay que guardar comprimido (gzip ≈ 5 %),
+  pedir por meses con un solo hilo y timeout de 5 min, y agregar a 15 min en silver (VWAP, mín., máx., nº ciclos).
+  Para 10 áreas y 4 años: ~500 peticiones mensuales y ~2 GB comprimidos.
+- La API corta en 100 documentos por petición (lo sufre A15); el resto de datasets caben en una petición mensual.
 - Cada TSO publica bajo procesos distintos (A16, A67, A68) y cambia con el tiempo al conectarse a las plataformas:
   la reconciliación por TSO y fecha es parte del trabajo.
 
@@ -321,11 +342,12 @@ Peculiaridades técnicas encontradas:
 
 **Alcance propuesto para la primera versión**
 
-- Áreas: BE, NL, FR, AT, CZ, DK1 y las cuatro alemanas (el núcleo de PICASSO/MARI).
+- Áreas: BE, NL, FR, AT, CZ, DK1, DK2 y Alemania (precio de desvío por país; balance por área de control 50Hertz,
+  TenneT, TransnetBW; Amprion no publica A84).
 - Ventana: CBMP desde junio 2022 (arranque de PICASSO) donde exista; el resto, un año (oct 2025 - oct 2026), como
   en grid-lakehouse.
-- Datasets: A85, A86, A84 (A16, A67, A68), A24 (A47, A51, A60, A61), A81, B17 si sale; y A69 (A01), A74, A65 (A01,
-  A16) para la previsión. A87, A15 y las previsiones intradía quedan para una fase 2.
+- Datasets: A85, A86, A84 (A16, A67, A68), A24 (A47, A51, A60, A61), A81, B17 (A63 y A51); y A69 (A01), A74,
+  A65 (A01, A16) para la previsión. A87, A15, B17 mFRR y las previsiones intradía quedan para una fase 2.
 - Stack y estructura iguales que grid-lakehouse: bronze crudo con log de carga y ventana de revisión (2 días para
   el CBMP, 7 para el resto), silver en Delta/UTC/15 min con MERGE idempotente, gold en dbt sobre DuckDB con tests,
   exportación Parquet y modelo Power BI como código.

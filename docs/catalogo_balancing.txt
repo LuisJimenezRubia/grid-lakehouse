@@ -1824,3 +1824,316 @@ A75-solar         ok       ok       ok       ok       ok       ok       ok      
 A65-DA            ok       ok       ok       ok       ok       ok       ok        ·        ·        ·        ·
 A65-WA            ok       ok       ok       ok       ok        -       ok        ·        ·        ·        ·
 A65-ACT           ok       ok       ok       ok       ok       ok       ok        ·        ·        ·        ·
+
+
+######## SEGUNDA PASADA · 2026-11-15 11:38 · día de prueba 2026-10-14
+
+
+===== B17-area · 12.3 netted & exchanged volumes, por área de control
+[B17-area] BE 2026-10-14 · HTTP 200 · 1,835 bytes · 12.3 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 96 puntos
+    periodo 2026-10-13T22:00Z → 2026-10-14T22:00Z · resoluciones {'PT15M': 25}
+    businessType: {'B09': 2}
+    quantity_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A01': 2}
+    ej: {'position': '1', 'quantity': '28.1875'}
+    ej: {'position': '2', 'quantity': '54.3515'}
+    ej: {'position': '3', 'quantity': '12.6235'}
+[B17-area] NL 2026-10-14 · HTTP 200 · 1,845 bytes · 11.5 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 96 puntos
+    periodo 2026-10-13T22:00Z → 2026-10-14T22:00Z · resoluciones {'PT15M': 26}
+    businessType: {'B09': 2}
+    quantity_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A01': 2}
+    ej: {'position': '1', 'quantity': '0.0709'}
+    ej: {'position': '2', 'quantity': '0.1265'}
+    ej: {'position': '1', 'quantity': '0.0007'}
+[B17-area] FR 2026-10-14 · HTTP 200 · 1,863 bytes · 10.1 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 96 puntos
+    periodo 2026-10-13T22:00Z → 2026-10-14T22:00Z · resoluciones {'PT15M': 22}
+    businessType: {'B09': 2}
+    quantity_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A01': 2}
+    ej: {'position': '1', 'quantity': '4.5479'}
+    ej: {'position': '2', 'quantity': '6.3756'}
+    ej: {'position': '1', 'quantity': '3.0139'}
+[B17-area] AT 2026-10-14 · HTTP 200 · 1,825 bytes · 9.5 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 96 puntos
+    periodo 2026-10-13T22:00Z → 2026-10-14T22:00Z · resoluciones {'PT15M': 30}
+    businessType: {'B09': 2}
+    quantity_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A01': 2}
+    ej: {'position': '1', 'quantity': '0.0037'}
+    ej: {'position': '1', 'quantity': '0.4149'}
+    ej: {'position': '1', 'quantity': '0.7294'}
+[B17-area] CZ 2026-10-14 · HTTP 200 · 1,783 bytes · 11.0 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 96 puntos
+    periodo 2026-10-13T22:00Z → 2026-10-14T22:00Z · resoluciones {'PT15M': 29}
+    businessType: {'B09': 2}
+    quantity_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A01': 2}
+    ej: {'position': '1', 'quantity': '0.0137'}
+    ej: {'position': '1', 'quantity': '0.0767'}
+    ej: {'position': '1', 'quantity': '0.459'}
+[B17-area] DE_50Hz 2026-10-14 · HTTP 200 · 1,814 bytes · 2.3 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 96 puntos
+    periodo 2026-10-13T22:00Z → 2026-10-14T22:00Z · resoluciones {'PT15M': 30}
+    businessType: {'B09': 2}
+    quantity_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A01': 2}
+    ej: {'position': '1', 'quantity': '0.0637'}
+    ej: {'position': '2', 'quantity': '0'}
+    ej: {'position': '3', 'quantity': '0.002'}
+[B17-area] DE_TTG 2026-10-14 · HTTP 200 · 1,840 bytes · 10.0 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 96 puntos
+    periodo 2026-10-13T22:00Z → 2026-10-14T22:00Z · resoluciones {'PT15M': 32}
+    businessType: {'B09': 2}
+    quantity_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A01': 2}
+    ej: {'position': '1', 'quantity': '2.7076'}
+    ej: {'position': '2', 'quantity': '6.0002'}
+    ej: {'position': '3', 'quantity': '0.3275'}
+[B17-area] DE_LFC_block 2026-10-14 · HTTP 200 · 986 bytes · 4.1 s · sin datos: No matching data found for Data item NETTED_AND_EXCHANGED_VOLUMES [IFs: IN 3.10 mFRR 3.17 aFRR 3.16] (10Y1001A1001A63L) and interval 2026-10-13T22:00:00Z/2026-1
+
+===== B17-area-np · 12.3 netted & exchanged volumes, por área, sin processType
+[B17-area-np] BE 2026-10-14 · HTTP 400 · 854 bytes · 10.8 s
+    Mandatory parameter ProcessType is missing.
+[B17-area-np] DE_50Hz 2026-10-14 · HTTP 400 · 854 bytes · 17.4 s
+    Mandatory parameter ProcessType is missing.
+
+===== B17-area-aFRR · 12.3 netted & exchanged volumes, por área, processType aFRR (PICASSO)
+[B17-area-aFRR] BE 2026-10-14 · HTTP 200 · 202,325 bytes · 8.2 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 43200 puntos
+    periodo 2026-10-13T22:00Z → 2026-10-14T22:00Z · resoluciones {'PT4S': 2}
+    businessType: {'B09': 2}
+    standard_MarketProduct.marketProductType: {'A01': 2}
+    quantity_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A01': 2}
+    ej: {'position': '1', 'quantity': '0'}
+    ej: {'position': '2', 'quantity': '0'}
+    ej: {'position': '3', 'quantity': '0'}
+[B17-area-aFRR] DE_50Hz 2026-10-14 · HTTP 200 · 210,689 bytes · 9.9 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 43200 puntos
+    periodo 2026-10-13T22:00Z → 2026-10-14T22:00Z · resoluciones {'PT4S': 2}
+    businessType: {'B09': 2}
+    standard_MarketProduct.marketProductType: {'A01': 2}
+    quantity_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A01': 2}
+    ej: {'position': '1', 'quantity': '0'}
+    ej: {'position': '2', 'quantity': '0'}
+    ej: {'position': '3', 'quantity': '0'}
+
+===== B17-area-mFRR · 12.3 netted & exchanged volumes, por área, processType mFRR (MARI)
+[B17-area-mFRR] BE 2026-10-14 · HTTP 400 · 882 bytes · 1.7 s
+    The provided parameters do not match the dataItem parameters or values.
+[B17-area-mFRR] DE_50Hz 2026-10-14 · HTTP 400 · 882 bytes · 8.4 s
+    The provided parameters do not match the dataItem parameters or values.
+
+===== B17-border · 12.3 netted & exchanged volumes, por frontera (Acquiring/Connecting)
+[B17-border] BE>NL 2026-10-14 · HTTP 400 · 886 bytes · 1.9 s
+    Area EICs shall be the same. Delivered: 10YBE----------2, 10YNL----------L.
+[B17-border] NL>BE 2026-10-14 · HTTP 400 · 886 bytes · 8.9 s
+    Area EICs shall be the same. Delivered: 10YNL----------L, 10YBE----------2.
+[B17-border] BE>FR 2026-10-14 · HTTP 400 · 886 bytes · 1.5 s
+    Area EICs shall be the same. Delivered: 10YBE----------2, 10YFR-RTE------C.
+[B17-border] BE>DE_TTG 2026-10-14 · HTTP 400 · 886 bytes · 8.4 s
+    Area EICs shall be the same. Delivered: 10YBE----------2, 10YDE-EON------1.
+[B17-border] DE_50Hz>CZ 2026-10-14 · HTTP 400 · 886 bytes · 1.8 s
+    Area EICs shall be the same. Delivered: 10YDE-VE-------2, 10YCZ-CEPS-----N.
+[B17-border] DE_TTG>NL 2026-10-14 · HTTP 400 · 886 bytes · 1.4 s
+    Area EICs shall be the same. Delivered: 10YDE-EON------1, 10YNL----------L.
+
+===== B17-border-np · 12.3 netted & exchanged volumes, por frontera, sin processType
+[B17-border-np] BE>NL 2026-10-14 · HTTP 400 · 886 bytes · 1.4 s
+    Area EICs shall be the same. Delivered: 10YBE----------2, 10YNL----------L.
+[B17-border-np] NL>BE 2026-10-14 · HTTP 400 · 886 bytes · 1.5 s
+    Area EICs shall be the same. Delivered: 10YNL----------L, 10YBE----------2.
+
+===== A15-aFRR-daily · 12.3.F procured balancing capacity aFRR, agreement daily
+[A15-aFRR-daily] BE 2026-10-14 · HTTP 400 · 920 bytes · 3.4 s
+    The number of instances (467) exceeds the allowed maximum (100) for data item PROCURED_BALANCING_CAPACITY_R3.
+[A15-aFRR-daily] NL 2026-10-14 · HTTP 200 · 2,185 bytes · 8.2 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 86 TimeSeries · 86 puntos
+    periodo 2026-10-13T22:00Z → 2026-10-14T22:00Z · resoluciones {'PT15M': 86}
+    businessType: {'B95': 86}
+    type_MarketAgreement.type: {'A01': 86}
+    standard_MarketProduct.marketProductType: {'A01': 86}
+    flowDirection.direction: {'A01': 42, 'A02': 44}
+    currency_Unit.name: {'EUR': 86}
+    quantity_Measure_Unit.name: {'MAW': 86}
+    price_Measure_Unit.name: {'MAW': 86}
+    curveType: {'A03': 86}
+    ej: {'position': '1', 'quantity': '24', 'procurement_Price.amount': '3.39'}
+    ej: {'position': '1', 'quantity': '31', 'procurement_Price.amount': '0.78'}
+    ej: {'position': '1', 'quantity': '26', 'procurement_Price.amount': '3.48'}
+[A15-aFRR-daily] DE_50Hz 2026-10-14 · HTTP 200 · 962 bytes · 3.3 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YDE-VE-------2) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A15-aFRR-daily] AT 2026-10-14 · HTTP 400 · 921 bytes · 2.6 s
+    The number of instances (1410) exceeds the allowed maximum (100) for data item PROCURED_BALANCING_CAPACITY_R3.
+
+===== A15-aFRR-weekly · 12.3.F procured balancing capacity aFRR, agreement weekly
+[A15-aFRR-weekly] BE 2026-10-14 · HTTP 200 · 962 bytes · 10.1 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YBE----------2) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A15-aFRR-weekly] NL 2026-10-14 · HTTP 200 · 962 bytes · 14.3 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YNL----------L) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A15-aFRR-weekly] DE_50Hz 2026-10-14 · HTTP 200 · 962 bytes · 9.5 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YDE-VE-------2) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A15-aFRR-weekly] AT 2026-10-14 · HTTP 200 · 962 bytes · 13.1 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YAT-APG------L) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+
+===== A15-aFRR-monthly · 12.3.F procured balancing capacity aFRR, agreement monthly
+[A15-aFRR-monthly] BE 2026-10-14 · HTTP 200 · 962 bytes · 9.4 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YBE----------2) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A15-aFRR-monthly] NL 2026-10-14 · HTTP 200 · 962 bytes · 6.0 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YNL----------L) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A15-aFRR-monthly] DE_50Hz 2026-10-14 · HTTP 200 · 962 bytes · 6.1 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YDE-VE-------2) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A15-aFRR-monthly] AT 2026-10-14 · HTTP 200 · 962 bytes · 6.7 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YAT-APG------L) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+
+===== A15-aFRR-yearly · 12.3.F procured balancing capacity aFRR, agreement yearly
+[A15-aFRR-yearly] BE 2026-10-14 · HTTP 200 · 962 bytes · 6.8 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YBE----------2) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A15-aFRR-yearly] NL 2026-10-14 · HTTP 200 · 962 bytes · 5.9 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YNL----------L) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A15-aFRR-yearly] DE_50Hz 2026-10-14 · HTTP 200 · 962 bytes · 6.6 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YDE-VE-------2) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A15-aFRR-yearly] AT 2026-10-14 · HTTP 200 · 962 bytes · 7.1 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YAT-APG------L) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+
+===== A15-mFRR-daily · 12.3.F procured balancing capacity mFRR, agreement daily
+[A15-mFRR-daily] BE 2026-10-14 · HTTP 400 · 921 bytes · 9.1 s
+    The number of instances (1775) exceeds the allowed maximum (100) for data item PROCURED_BALANCING_CAPACITY_R3.
+[A15-mFRR-daily] NL 2026-10-14 · HTTP 400 · 920 bytes · 10.7 s
+    The number of instances (284) exceeds the allowed maximum (100) for data item PROCURED_BALANCING_CAPACITY_R3.
+[A15-mFRR-daily] DE_50Hz 2026-10-14 · HTTP 200 · 962 bytes · 9.9 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YDE-VE-------2) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A15-mFRR-daily] AT 2026-10-14 · HTTP 400 · 920 bytes · 7.5 s
+    The number of instances (396) exceeds the allowed maximum (100) for data item PROCURED_BALANCING_CAPACITY_R3.
+[A15-mFRR-daily] FR 2026-10-14 · HTTP 400 · 920 bytes · 6.2 s
+    The number of instances (546) exceeds the allowed maximum (100) for data item PROCURED_BALANCING_CAPACITY_R3.
+
+===== A15-FCR-daily · 12.3.F procured balancing capacity FCR, agreement daily
+[A15-FCR-daily] BE 2026-10-14 · HTTP 400 · 920 bytes · 12.5 s
+    The number of instances (192) exceeds the allowed maximum (100) for data item PROCURED_BALANCING_CAPACITY_R3.
+[A15-FCR-daily] DE_50Hz 2026-10-14 · HTTP 200 · 962 bytes · 9.1 s · sin datos: No matching data found for Data item PROCURED_BALANCING_CAPACITY_R3 [12.3.F] (10YDE-VE-------2) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+
+===== A89-daily · 17.1.C prices of contracted reserves, agreement daily
+[A89-daily] BE 2026-10-14 · HTTP 400 · 932 bytes · 5.1 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-daily] NL 2026-10-14 · HTTP 400 · 932 bytes · 2.4 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-daily] FR 2026-10-14 · HTTP 400 · 932 bytes · 7.2 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-daily] AT 2026-10-14 · HTTP 400 · 932 bytes · 11.5 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-daily] DE_50Hz 2026-10-14 · HTTP 400 · 932 bytes · 11.3 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+
+===== A89-hourly · 17.1.C prices of contracted reserves, agreement hourly
+[A89-hourly] BE 2026-10-14 · HTTP 400 · 932 bytes · 7.8 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-hourly] NL 2026-10-14 · HTTP 400 · 932 bytes · 10.4 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-hourly] FR 2026-10-14 · HTTP 400 · 932 bytes · 10.6 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-hourly] AT 2026-10-14 · HTTP 400 · 932 bytes · 11.8 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-hourly] DE_50Hz 2026-10-14 · HTTP 400 · 932 bytes · 13.8 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+
+===== A89-weekly · 17.1.C prices of contracted reserves, agreement weekly
+[A89-weekly] BE 2026-10-14 · HTTP 400 · 932 bytes · 12.1 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-weekly] NL 2026-10-14 · HTTP 400 · 932 bytes · 11.0 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-weekly] FR 2026-10-14 · HTTP 400 · 932 bytes · 9.8 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-weekly] AT 2026-10-14 · HTTP 400 · 932 bytes · 11.2 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-weekly] DE_50Hz 2026-10-14 · HTTP 400 · 932 bytes · 10.6 s
+    The combination of [DOCUMENT_TYPE=A89] is not valid, or the requested data is not allowed to be fetched via this service.
+
+===== A89-daily-aFRR · 17.1.C prices of contracted reserves daily, businessType aFRR
+[A89-daily-aFRR] BE 2026-10-14 · HTTP 400 · 951 bytes · 1.4 s
+    The combination of [DOCUMENT_TYPE=A89, BUSINESS_TYPE=A96] is not valid, or the requested data is not allowed to be fetched via this service.
+[A89-daily-aFRR] DE_50Hz 2026-10-14 · HTTP 400 · 951 bytes · 1.1 s
+    The combination of [DOCUMENT_TYPE=A89, BUSINESS_TYPE=A96] is not valid, or the requested data is not allowed to be fetched via this service.
+
+===== A81-aFRR · 17.1.B/C contracted reserves daily, processType aFRR
+[A81-aFRR] BE 2026-10-14 · HTTP 400 · 855 bytes · 11.4 s
+    Mandatory parameter BusinessType is missing.
+[A81-aFRR] NL 2026-10-14 · HTTP 400 · 855 bytes · 12.6 s
+    Mandatory parameter BusinessType is missing.
+[A81-aFRR] DE_50Hz 2026-10-14 · HTTP 400 · 855 bytes · 16.8 s
+    Mandatory parameter BusinessType is missing.
+
+===== A81-mFRR · 17.1.B/C contracted reserves daily, processType mFRR
+[A81-mFRR] BE 2026-10-14 · HTTP 400 · 855 bytes · 12.0 s
+    Mandatory parameter BusinessType is missing.
+[A81-mFRR] NL 2026-10-14 · HTTP 400 · 855 bytes · 11.4 s
+    Mandatory parameter BusinessType is missing.
+[A81-mFRR] DE_50Hz 2026-10-14 · HTTP 400 · 855 bytes · 0.1 s
+    Mandatory parameter BusinessType is missing.
+
+===== A87-mes · 17.1.I financial expenses & income, mes completo sep 2026
+[A87-mes] BE 2026-09-01..2026-09-30 · HTTP 200 · 978 bytes · 0.5 s · sin datos: No matching data found for Data item FINANCIAL_EXPENSES_AND_INCOME_FOR_BALANCING_R3 [17.1.I] (10YBE----------2) and interval 2026-08-31T22:00:00Z/2026-09-30T22:
+[A87-mes] NL 2026-09-01..2026-09-30 · HTTP 200 · 893 bytes · 1.5 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 1 TimeSeries · 1 puntos
+    periodo 2026-08-31T22:00Z → 2026-09-30T22:00Z · resoluciones {'P1M': 1}
+    businessType: {'A99': 1}
+    currency_Unit.name: {'EUR': 1}
+    curveType: {'A03': 1}
+    ej: {'position': '1', 'Financial_Price': ''}
+[A87-mes] FR 2026-09-01..2026-09-30 · HTTP 200 · 886 bytes · 0.3 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 1 TimeSeries · 1 puntos
+    periodo 2026-08-31T22:00Z → 2026-09-30T22:00Z · resoluciones {'P1M': 1}
+    businessType: {'A99': 1}
+    currency_Unit.name: {'EUR': 1}
+    curveType: {'A03': 1}
+    ej: {'position': '1', 'Financial_Price': ''}
+[A87-mes] AT 2026-09-01..2026-09-30 · HTTP 200 · 893 bytes · 11.0 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 1 TimeSeries · 1 puntos
+    periodo 2026-08-31T22:00Z → 2026-09-30T22:00Z · resoluciones {'P1M': 1}
+    businessType: {'A99': 1}
+    currency_Unit.name: {'EUR': 1}
+    curveType: {'A03': 1}
+    ej: {'position': '1', 'Financial_Price': ''}
+[A87-mes] DE_50Hz 2026-09-01..2026-09-30 · HTTP 200 · 978 bytes · 8.2 s · sin datos: No matching data found for Data item FINANCIAL_EXPENSES_AND_INCOME_FOR_BALANCING_R3 [17.1.I] (10YDE-VE-------2) and interval 2026-08-31T22:00:00Z/2026-09-30T22:
+[A87-mes] DE_LFC_block 2026-09-01..2026-09-30 · HTTP 200 · 978 bytes · 0.5 s · sin datos: No matching data found for Data item FINANCIAL_EXPENSES_AND_INCOME_FOR_BALANCING_R3 [17.1.I] (10Y1001A1001A63L) and interval 2026-08-31T22:00:00Z/2026-09-30T22:
+
+===== A85-DE · 17.1.G imbalance prices, EIC alternativos para Alemania
+[A85-DE] DE_LFC_block 2026-10-14 · HTTP 200 · 951 bytes · 10.7 s · sin datos: No matching data found for Data item IMBALANCE_PRICES_R3 [17.1.G] (10Y1001A1001A63L) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A85-DE] DE_country 2026-10-14 · HTTP 200 · 2,269 bytes · 0.7 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 192 puntos
+    periodo 2026-10-13T22:00Z → 2026-10-14T22:00Z · resoluciones {'PT15M': 2}
+    businessType: {'A19': 2}
+    currency_Unit.name: {'EUR': 2}
+    price_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A03': 2}
+    ej: {'position': '1', 'imbalance_Price.amount': '128.907', 'imbalance_Price.category': 'A04'}
+    ej: {'position': '2', 'imbalance_Price.amount': '188.051', 'imbalance_Price.category': 'A04'}
+    ej: {'position': '3', 'imbalance_Price.amount': '131.17', 'imbalance_Price.category': 'A04'}
+[A85-DE] DK 2026-10-14 · HTTP 200 · 951 bytes · 0.4 s · sin datos: No matching data found for Data item IMBALANCE_PRICES_R3 [17.1.G] (10Y1001A1001A65H) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A85-DE] DK2 2026-10-14 · HTTP 200 · 2,194 bytes · 9.7 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 192 puntos
+    periodo 2026-10-13T22:00Z → 2026-10-14T22:00Z · resoluciones {'PT15M': 2}
+    businessType: {'A19': 2}
+    currency_Unit.name: {'EUR': 2}
+    price_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A03': 2}
+    ej: {'position': '1', 'imbalance_Price.amount': '111.48', 'imbalance_Price.category': 'A04'}
+    ej: {'position': '2', 'imbalance_Price.amount': '266.94', 'imbalance_Price.category': 'A04'}
+    ej: {'position': '3', 'imbalance_Price.amount': '441.43', 'imbalance_Price.category': 'A04'}
+
+===== A84-CS-DE · 17.1.F CBMP aFRR, EIC alternativos para Alemania y Amprion
+[A84-CS-DE] DE_LFC_block 2026-10-14 · HTTP 200 · 988 bytes · 0.7 s · sin datos: No matching data found for Data item PRICES_OF_ACTIVATED_BALANCING_ENERGY_R3 [TR 17.1.F, IF aFRR 3.16] (10Y1001A1001A63L) and interval 2026-10-13T22:00:00Z/2026
+[A84-CS-DE] DE_country 2026-10-14 · HTTP 200 · 988 bytes · 8.2 s · sin datos: No matching data found for Data item PRICES_OF_ACTIVATED_BALANCING_ENERGY_R3 [TR 17.1.F, IF aFRR 3.16] (10Y1001A1001A83F) and interval 2026-10-13T22:00:00Z/2026
+
+===== A84-DE · 17.1.F precios activación 15 min, EIC alternativos
+[A84-DE] DE_LFC_block 2026-10-14 · HTTP 200 · 988 bytes · 10.1 s · sin datos: No matching data found for Data item PRICES_OF_ACTIVATED_BALANCING_ENERGY_R3 [TR 17.1.F, IF aFRR 3.16] (10Y1001A1001A63L) and interval 2026-10-13T22:00:00Z/2026
+[A84-DE] DE_country 2026-10-14 · HTTP 200 · 988 bytes · 2.8 s · sin datos: No matching data found for Data item PRICES_OF_ACTIVATED_BALANCING_ENERGY_R3 [TR 17.1.F, IF aFRR 3.16] (10Y1001A1001A83F) and interval 2026-10-13T22:00:00Z/2026
+[A84-DE] DE_AMP 2026-10-14 · HTTP 200 · 988 bytes · 10.2 s · sin datos: No matching data found for Data item PRICES_OF_ACTIVATED_BALANCING_ENERGY_R3 [TR 17.1.F, IF aFRR 3.16] (10YDE-RWENET---I) and interval 2026-10-13T22:00:00Z/2026
+
+===== A86-DE · 17.1.H imbalance volumes, EIC alternativos
+[A86-DE] DE_LFC_block 2026-10-14 · HTTP 200 · 958 bytes · 0.9 s · sin datos: No matching data found for Data item TOTAL_IMBALANCE_VOLUMES_R3 [17.1.H] (10Y1001A1001A63L) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A86-DE] DE_country 2026-10-14 · HTTP 200 · 958 bytes · 11.9 s · sin datos: No matching data found for Data item TOTAL_IMBALANCE_VOLUMES_R3 [17.1.H] (10Y1001A1001A83F) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A86-DE] DK 2026-10-14 · HTTP 200 · 958 bytes · 15.7 s · sin datos: No matching data found for Data item TOTAL_IMBALANCE_VOLUMES_R3 [17.1.H] (10Y1001A1001A65H) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+[A86-DE] DK2 2026-10-14 · HTTP 200 · 958 bytes · 2.2 s · sin datos: No matching data found for Data item TOTAL_IMBALANCE_VOLUMES_R3 [17.1.H] (10YDK-2--------M) and interval 2026-10-13T22:00:00Z/2026-10-14T22:00:00Z.
+
+===== A84-CS-mes · 17.1.F CBMP aFRR, un mes entero (sep 2026) para BE
+[A84-CS-mes] BE 2026-09-01..2026-09-30 · HTTP 200 · 100,722,391 bytes · 90.7 s · xml, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 407790 puntos
+    periodo 2026-08-31T22:00Z → 2026-09-30T22:00Z · resoluciones {'PT4S': 2}
+    businessType: {'A96': 2}
+    standard_MarketProduct.marketProductType: {'A01': 2}
+    flowDirection.direction: {'A01': 1, 'A02': 1}
+    currency_Unit.name: {'EUR': 2}
+    price_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A03': 2}
+    ej: {'position': '1'}
+    ej: {'position': '20', 'activation_Price.amount': '80', 'imbalance_Price.category': 'A08'}
+    ej: {'position': '21'}
+
+===== A85-mes · 17.1.G imbalance prices, un mes entero (sep 2026) para BE
+[A85-mes] BE 2026-09-01..2026-09-30 · HTTP 200 · 58,912 bytes · 13.1 s · zip, 1 doc · {'Balancing_MarketDocument': 1} · 2 TimeSeries · 5592 puntos
+    periodo 2026-08-31T22:00Z → 2026-09-30T22:00Z · resoluciones {'PT15M': 2}
+    businessType: {'A19': 2}
+    currency_Unit.name: {'EUR': 2}
+    price_Measure_Unit.name: {'MWH': 2}
+    curveType: {'A03': 2}
+    ej: {'position': '1', 'imbalance_Price.amount': '182.8', 'imbalance_Price.category': 'A04', 'Financial_Price': ''}
+    ej: {'position': '2', 'imbalance_Price.amount': '195.92', 'imbalance_Price.category': 'A04', 'Financial_Price': ''}
+    ej: {'position': '3', 'imbalance_Price.amount': '133.76', 'imbalance_Price.category': 'A04', 'Financial_Price': ''}
+
+######## FIN SEGUNDA PASADA
