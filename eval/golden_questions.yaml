@@ -353,8 +353,9 @@ questions:
   lang: en
   question: Across all Core TSOs, what share of CNEC-hours met the minRAM target?
   reference_sql: |
-    select round(100.0 * count(*) filter (where meets_min_ram_target) / count(*), 1) as pct_meets_target
-    from gold.fct_cnec_hourly
+    select round(100.0 * count(*) filter (where c.meets_min_ram_target) / count(*), 1) as pct_meets_target
+    from gold.fct_cnec_hourly c
+    join reference.tsos t on t.tso = c.tso and t.is_core_tso
 
 - id: N23
   type: sql

@@ -8,7 +8,7 @@ OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5-coder:7b")
 # Ollama's default context window is too small for the schema description; without this the
 # prompt is silently truncated and the model never sees the last tables.
-NUM_CTX = int(os.environ.get("OLLAMA_NUM_CTX", "8192"))
+NUM_CTX = int(os.environ.get("OLLAMA_NUM_CTX", "12288"))
 
 
 class LLMError(Exception):
