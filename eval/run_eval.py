@@ -7,7 +7,8 @@ appear somewhere in the matching row. Scoring is strict on purpose - a right ans
 shape (a fraction instead of a percentage, "July" instead of 2026-07-01) counts as a miss, and
 the saved file shows both results so the miss can be judged by eye.
 
-'trap' questions pass when the assistant declines (NO_SQL) instead of running a query. The
+'trap' questions pass when the assistant declines (NO_SQL) instead of running a query; for a date
+outside the data, a query that honestly returns no rows also passes (no number was invented). The
 legal-judgement trap is skipped: its right answer is figures plus a caveat, which needs the
 written answer. 'doc' questions belong to the document-RAG path and are skipped here.
 
@@ -89,6 +90,15 @@ def result_matches(expected_rows, actual_rows):
     return True
 
 
+def _a_json(valor):
+    """DuckDB devuelve fechas, horas, decimales y bytes que json no sabe escribir: se guardan como texto."""
+    if isinstance(valor, (dt.date, dt.datetime, dt.time, dt.timedelta)):
+        return valor.isoformat() if not isinstance(valor, dt.timedelta) else str(valor)
+    if isinstance(valor, bytes):
+        return valor.decode("utf-8", "replace")
+    return str(valor)   # Decimal, UUID y cualquier otro tipo
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--model", default=llm.DEFAULT_MODEL)
@@ -121,7 +131,8 @@ def main():
             passed = answer["status"] == "ok" and result_matches(expected[q["id"]]["rows"], rows)
             wanted = expected[q["id"]]["rows"]
         else:
-            passed = answer["status"] == "no_sql"
+            passed = answer["status"] == "no_sql" or (
+                q["category"] == "out_of_range" and answer["status"] == "ok" and not rows)
             wanted = q["expected_behaviour"]
         for key in ("all", q["type"], f"{q['type']}/{q['category']}"):
             totals[key][0] += passed
@@ -143,7 +154,7 @@ def main():
     stamp = dt.datetime.now().strftime("%Y%m%d_%H%M")
     out = RESULTS / f"text_to_sql_{re.sub(r'[^A-Za-z0-9.-]', '_', model)}_{stamp}.json"
     out.write_text(json.dumps({"model": model, "run_at": stamp, "totals": totals, "questions": records},
-                              indent=2, ensure_ascii=False), encoding="utf-8")
+                              indent=2, ensure_ascii=False, default=_a_json), encoding="utf-8")
     print(f"\nDetails in {out.relative_to(ROOT)}")
 
 
