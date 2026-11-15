@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T16:42:38",
+  "generated_at": "2026-11-15T16:07:52",
   "data_range": [
     "2025-10-01",
     "2026-10-12"
@@ -78,10 +78,19 @@
       ]
     },
     "N30": {
-      "question": "On how many days in 2026 were Belgian and Dutch prices equal in every quarter-hour of the day?",
+      "question": "On how many days in 2026 did Belgian and Dutch prices converge in at least 90 % of the quarter-hours?",
       "rows": [
         {
-          "fully_converged_days": 0
+          "days_90pct_converged": 1
+        }
+      ]
+    },
+    "N31": {
+      "question": "Which day in 2026 had the highest price convergence between Belgium and the Netherlands, and what share of quarter-hours converged?",
+      "rows": [
+        {
+          "market_date": "2026-08-16",
+          "pct_converged": 93.75
         }
       ]
     },
@@ -236,11 +245,20 @@
       ]
     },
     "N23": {
-      "question": "Which Elia CNEC limited the Core market most often?",
+      "question": "Which Elia constraint limited the Core market most often, counting external constraints as well as network elements?",
       "rows": [
         {
           "cnec_name": "External Constraint BE_AL_import",
           "quarters_active": 7810
+        }
+      ]
+    },
+    "N32": {
+      "question": "Which Elia network element (a line, not an external constraint) limited the Core market most often?",
+      "rows": [
+        {
+          "cnec_name": "Achene - Lonny 380.19",
+          "quarters_active": 4284
         }
       ]
     },

@@ -118,12 +118,25 @@ questions:
   category: prices
   difficulty: hard
   lang: en
-  question: On how many days in 2026 were Belgian and Dutch prices equal in every quarter-hour of the day?
+  question: On how many days in 2026 did Belgian and Dutch prices converge in at least 90 % of the quarter-hours?
   reference_sql: |
-    select count(*) as fully_converged_days
+    select count(*) as days_90pct_converged
     from gold.mart_daily_price_spread
     where neighbour = 'NL' and market_date >= date '2026-01-01'
-      and quarters_price_converged = quarters
+      and quarters_price_converged >= 0.9 * quarters
+
+- id: N31
+  type: sql
+  category: prices
+  difficulty: medium
+  lang: en
+  question: Which day in 2026 had the highest price convergence between Belgium and the Netherlands, and what share of quarter-hours converged?
+  reference_sql: |
+    select market_date, round(100.0 * quarters_price_converged / quarters, 2) as pct_converged
+    from gold.mart_daily_price_spread
+    where neighbour = 'NL' and market_date >= date '2026-01-01'
+    order by pct_converged desc
+    limit 1
 
 # ---------------------------------------------------------------- flows
 - id: N07
@@ -348,11 +361,26 @@ questions:
   category: flow_based
   difficulty: medium
   lang: en
-  question: Which Elia CNEC limited the Core market most often?
+  question: Which Elia constraint limited the Core market most often, counting external constraints as well as network elements?
   reference_sql: |
     select cnec_name, sum(quarters_active) as quarters_active
     from gold.mart_monthly_active_constraints
     where is_elia
+    group by cnec_name
+    order by quarters_active desc
+    limit 1
+  note: The answer is an external constraint (a Belgian import limit), not a line.
+
+- id: N32
+  type: sql
+  category: flow_based
+  difficulty: hard
+  lang: en
+  question: Which Elia network element (a line, not an external constraint) limited the Core market most often?
+  reference_sql: |
+    select cnec_name, sum(quarters_active) as quarters_active
+    from gold.mart_monthly_active_constraints
+    where is_elia and cnec_name not like 'External Constraint%'
     group by cnec_name
     order by quarters_active desc
     limit 1
