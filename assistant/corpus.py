@@ -14,6 +14,7 @@ MARTS = ROOT / "gold" / "models" / "marts"
 MARKDOWN = ["README.md", "docs/decisions.md", "docs/notas-fuentes.md", "docs/report-design.md"]
 MAX_CHARS = 1500
 HEADING = re.compile(r"^(#{1,3})\s+(.*)")
+DBT_VAR = re.compile(r"\{\{\s*var\('(\w+)'\)\s*\}\}")
 
 
 def _split(text):
@@ -50,6 +51,7 @@ def _markdown(path):
 def _models():
     schema_path = "gold/models/marts/schema.yml"
     docs = {m["name"]: m for m in yaml.safe_load((ROOT / schema_path).read_text(encoding="utf-8"))["models"]}
+    variables = yaml.safe_load((ROOT / "gold" / "dbt_project.yml").read_text(encoding="utf-8")).get("vars", {})
     for sql_file in sorted(MARTS.glob("*.sql")):
         name = sql_file.stem
         doc = docs.get(name, {})
@@ -57,7 +59,10 @@ def _models():
         for column in doc.get("columns", []):
             if column.get("description"):
                 lines.append(f"Column {column['name']}: {' '.join(column['description'].split())}")
-        lines.append(sql_file.read_text(encoding="utf-8")[:3000])
+        # Show thresholds with their value: {{ var('revision_days') }} reads as "7 /* revision_days */".
+        sql = DBT_VAR.sub(lambda m: f"{variables[m.group(1)]} /* {m.group(1)} */" if m.group(1) in variables
+                          else m.group(0), sql_file.read_text(encoding="utf-8"))
+        lines.append(sql[:3000])
         yield {"sources": [f"gold/models/marts/{name}.sql", schema_path], "title": f"Gold model {name}",
                "text": "\n".join(line for line in lines if line)}
 

@@ -1,6 +1,8 @@
 """Call a local model through Ollama's HTTP API (standard library only, nothing leaves the machine)."""
 import json
 import os
+import sys
+import time
 import urllib.error
 import urllib.request
 
@@ -19,16 +21,22 @@ class LLMError(Exception):
     pass
 
 
-def _post(path, payload):
-    request = urllib.request.Request(f"{OLLAMA_URL}{path}", data=json.dumps(payload).encode("utf-8"),
-                                     headers={"Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(request, timeout=600) as response:
-            return json.loads(response.read())
-    except urllib.error.HTTPError as exc:
-        raise LLMError(f"Ollama answered {exc.code}: {exc.read().decode('utf-8', 'replace')[:300]}") from exc
-    except urllib.error.URLError as exc:
-        raise LLMError(f"cannot reach Ollama at {OLLAMA_URL} ({exc.reason}); is it running?") from exc
+def _post(path, payload, attempts=3):
+    """POST to Ollama. A crashed model runner (HTTP 5xx) is retried: Ollama reloads the model on the next call."""
+    data = json.dumps(payload).encode("utf-8")
+    for attempt in range(1, attempts + 1):
+        request = urllib.request.Request(f"{OLLAMA_URL}{path}", data=data, headers={"Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(request, timeout=600) as response:
+                return json.loads(response.read())
+        except urllib.error.HTTPError as exc:
+            detail = exc.read().decode("utf-8", "replace")[:300]
+            if exc.code < 500 or attempt == attempts:
+                raise LLMError(f"Ollama answered {exc.code}: {detail}") from exc
+            print(f"  Ollama answered {exc.code}, retrying ({attempt}/{attempts - 1})...", file=sys.stderr)
+            time.sleep(10)
+        except urllib.error.URLError as exc:
+            raise LLMError(f"cannot reach Ollama at {OLLAMA_URL} ({exc.reason}); is it running?") from exc
 
 
 def embed(texts, model=EMBED_MODEL):

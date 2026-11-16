@@ -58,13 +58,13 @@ def main():
     questions = yaml.safe_load(QUESTIONS.read_text(encoding="utf-8"))["questions"]
     by_question = {q["question"]: q for q in questions}
 
-    def fake_generate(messages):        # the "model" of the self-test: routes by type, cites the first source
+    def fake_generate(messages):        # the "model" of the self-test: routes by type, cites the first passage
         system, user = messages[0]["content"], messages[-1]["content"]
         if system.startswith("Classify"):
             return "CONCEPT" if by_question[user]["type"] == "doc" else "DATA"
         if system.startswith("You check"):
             return "YES"
-        return "Answer [" + re.search(r"file: (\S+)", user).group(1) + "]"
+        return "Answer [1]"
 
     if args.selftest:
         assistant = GridAssistant(generate=fake_generate, retriever=Retriever(embed=fake_embed, model="selftest", index_path=None))
