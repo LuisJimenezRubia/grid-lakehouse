@@ -1,0 +1,264 @@
+{
+  "writer_model": "gemma3:12b",
+  "embed_model": "bge-m3",
+  "run_at": "20261116_1940",
+  "summary": {
+    "passed": "7/9",
+    "retrieval": "9/9",
+    "citation": "9/9",
+    "key_points_model_judged": "14/18",
+    "routing": "41/41",
+    "routing_wrong": []
+  },
+  "questions": [
+    {
+      "id": "C01",
+      "question": "What does \"against_price\" mean in fct_border_flow_price, and why does it happen?",
+      "passed": true,
+      "retrieval": true,
+      "citation": true,
+      "key_points": {
+        "Physical flow goes from the more expensive zone to the cheaper one.": true,
+        "Caused by loop and transit flows (physics/Kirchhoff's laws under flow-based), e.g. north-to-south transit through Belgium.": true,
+        "It is physical flow, not the commercial exchange.": true
+      },
+      "seconds": 50.0,
+      "answer": "\"Against_price\" means that the physical flow goes from the expensive zone to the cheaper zone [gold/models/marts/fct_border_flow_price.sql]. This happens because physical flows, such as loop and transit flows, do not always follow the price signal due to the laws of Kirchhoff [gold/models/marts/fct_border_flow_price.sql]. For example, electricity can flow from north to south through Belgium even when it would be cheaper to send it the other way [gold/models/marts/fct_border_flow_price.sql].",
+      "retrieved": [
+        "0.657 gold/models/marts/fct_border_flow_price.sql - Gold model fct_border_flow_price",
+        "0.604 docs/notas-fuentes.md - Notas sobre las fuentes (lo aprendido con datos reales) - Flujo físico frente a señal de precio (19/10/2026)",
+        "0.597 gold/models/marts/mart_monthly_border_flow_price.sql - Gold model mart_monthly_border_flow_price",
+        "0.503 gold/dbt_project.yml - dbt variables (tolerances and thresholds)"
+      ],
+      "cited": [
+        "gold/models/marts/fct_border_flow_price.sql",
+        "gold/models/marts/schema.yml"
+      ],
+      "expected_sources": [
+        "gold/models/marts/fct_border_flow_price.sql",
+        "gold/models/marts/schema.yml"
+      ]
+    },
+    {
+      "id": "C02",
+      "question": "What is the minRAM target and how does this project measure compliance with it?",
+      "passed": true,
+      "retrieval": true,
+      "citation": true,
+      "key_points": {
+        "70 % rule of Regulation (EU) 2019/943, adjusted by each TSO's derogation or action plan.": true,
+        "Compliance compares RAM/Fmax with JAO's published min_ram_target, with a 0.001 tolerance for rounding.": true,
+        "The indicator is indicative, not an official compliance assessment.": false
+      },
+      "seconds": 47.7,
+      "answer": "The minRAM target is a fraction of Fmax that should be available for trade in Core, as per Regulation 2019/943 and each TSO's derogation or action plan [gold/models/marts/fct_cnec_hourly.sql]. Compliance is measured by comparing the published RAM with this target, with a tolerance of 0.001 due to rounding of JAO's published values [gold/models/marts/fct_cnec_hourly.sql]. The indicator is RAM/Fmax against JAO's published target, not ACER's official MACZT figure [docs/report-design.md].",
+      "retrieved": [
+        "0.608 docs/notas-fuentes.md - Notas sobre las fuentes (lo aprendido con datos reales) - Primeros resultados de JAO con el año completo (01/10/2025–12/10/2026)",
+        "0.591 gold/models/marts/mart_monthly_min_ram.sql - Gold model mart_monthly_min_ram",
+        "0.585 gold/models/marts/fct_cnec_hourly.sql - Gold model fct_cnec_hourly",
+        "0.549 docs/report-design.md - Power BI report — design - Pages"
+      ],
+      "cited": [
+        "gold/models/marts/fct_cnec_hourly.sql",
+        "gold/models/marts/schema.yml",
+        "docs/report-design.md"
+      ],
+      "expected_sources": [
+        "gold/models/marts/fct_cnec_hourly.sql",
+        "gold/models/marts/schema.yml"
+      ]
+    },
+    {
+      "id": "C03",
+      "question": "Why can ENTSO-E and Elia flow figures disagree, and how does the pipeline handle it?",
+      "passed": false,
+      "retrieval": true,
+      "citation": true,
+      "key_points": {
+        "ENTSO-E published the NL border hourly until 29/06/2026 while Elia is quarter-hourly; ENTSO-E is compared with the mean of Elia's quarters.": true,
+        "Recent days can be revised; a 7-day revision window re-downloads them and gold marks them provisional.": false,
+        "Each border-day gets a status (ok, minor_deviation, relevant_deviation, provisional, incomplete).": false
+      },
+      "seconds": 57.1,
+      "answer": "ENTSO-E and Elia's flow figures can disagree because ENTSO-E published hourly values for the Dutch border until June 29, 2026, while Elia always publishes quarter-hourly values [README.md]. To compare the data without false discrepancies, the hourly value from ENTSO-E is compared to the average of Elia's quarter-hours [gold/models/marts/fct_cross_border_flow.sql]. The pipeline handles these differences by calculating a `source_difference_mw` column, which represents the difference between ENTSO-E and Elia's data at ENTSO-E's resolution [gold/models/marts/fct_cross_border_flow.sql]. A discrepancy is considered information, while a gap is considered a failure [docs/notas-fuentes.md].",
+      "retrieved": [
+        "0.697 docs/notas-fuentes.md - Notas sobre las fuentes (lo aprendido con datos reales) - Reconciliación de flujos ENTSO-E (A11) vs Elia (ods026) — un año de datos (19/10/2026)",
+        "0.625 gold/models/marts/fct_cross_border_flow.sql - Gold model fct_cross_border_flow",
+        "0.618 README.md - Belgian Grid Lakehouse - What the data shows (Oct 2025 – Oct 2026)",
+        "0.618 docs/notas-fuentes.md - Notas sobre las fuentes (lo aprendido con datos reales) - Reconciliación de flujos ENTSO-E (A11) vs Elia (ods026) — un año de datos (19/10/2026)"
+      ],
+      "cited": [
+        "README.md",
+        "gold/models/marts/fct_cross_border_flow.sql",
+        "gold/models/marts/schema.yml",
+        "docs/notas-fuentes.md"
+      ],
+      "expected_sources": [
+        "gold/models/marts/fct_cross_border_flow.sql",
+        "gold/models/marts/mart_daily_flow_reconciliation.sql",
+        "docs/decisions.md",
+        "docs/notas-fuentes.md"
+      ]
+    },
+    {
+      "id": "C04",
+      "question": "What is the difference between commercial exchange and physical flow, and what is unscheduled flow?",
+      "passed": true,
+      "retrieval": true,
+      "citation": true,
+      "key_points": {
+        "Commercial exchange is what the market scheduled (JAO); physical flow is what went through the lines (Elia).": true,
+        "Unscheduled flow is physical minus commercial - transit and loop flows through Belgium.": true
+      },
+      "seconds": 57.1,
+      "answer": "The commercial exchange is what the market has scheduled (JAO), while the physical flow is what actually passes through the lines (Elia) [gold/models/marts/fct_border_commercial_physical.sql]. The difference between these two is the unscheduled flow, which includes transit and loop flows that cross Belgium without being part of a trade with Belgium [gold/models/marts/fct_border_commercial_physical.sql]. LU is not included because it is part of the DE_LU zone and does not have its own commercial exchange [gold/models/marts/fct_border_commercial_physical.sql].",
+      "retrieved": [
+        "0.725 gold/models/marts/fct_border_commercial_physical.sql - Gold model fct_border_commercial_physical",
+        "0.667 gold/models/marts/mart_monthly_unscheduled_flow.sql - Gold model mart_monthly_unscheduled_flow",
+        "0.581 gold/models/marts/fct_border_flow_price.sql - Gold model fct_border_flow_price",
+        "0.539 docs/decisions.md - Design decisions - Known limits"
+      ],
+      "cited": [
+        "gold/models/marts/fct_border_commercial_physical.sql",
+        "gold/models/marts/schema.yml"
+      ],
+      "expected_sources": [
+        "gold/models/marts/fct_border_commercial_physical.sql",
+        "gold/models/marts/schema.yml"
+      ]
+    },
+    {
+      "id": "C05",
+      "question": "What is the shadow price of a CNEC?",
+      "passed": false,
+      "retrieval": true,
+      "citation": true,
+      "key_points": {
+        "A CNEC with shadow price > 0 is binding - it limited market coupling.": false,
+        "Expressed in EUR/MW - the welfare gain from one more MW of capacity on that element.": true
+      },
+      "seconds": 41.7,
+      "answer": "A CNEC's shadow price represents the social benefit gained for each additional MW of capacity in that CNEC [gold/models/marts/mart_monthly_active_constraints.sql]. It is expressed in €/MW and indicates how much welfare would be gained by having more capacity in that constraint [gold/models/marts/mart_monthly_active_constraints.sql]. The shadow price is used to identify bottlenecks [gold/models/marts/mart_monthly_active_constraints.sql].",
+      "retrieved": [
+        "0.628 gold/models/marts/mart_monthly_active_constraints.sql - Gold model mart_monthly_active_constraints",
+        "0.532 docs/notas-fuentes.md - Notas sobre las fuentes (lo aprendido con datos reales) - Primeros resultados de JAO con el año completo (01/10/2025–12/10/2026)",
+        "0.515 gold/models/marts/fct_cnec_hourly.sql - Gold model fct_cnec_hourly",
+        "0.457 gold/models/marts/mart_monthly_min_ram.sql - Gold model mart_monthly_min_ram"
+      ],
+      "cited": [
+        "gold/models/marts/mart_monthly_active_constraints.sql",
+        "gold/models/marts/schema.yml"
+      ],
+      "expected_sources": [
+        "gold/models/marts/mart_monthly_active_constraints.sql"
+      ]
+    },
+    {
+      "id": "C06",
+      "question": "Why does a market day sometimes have 92 or 100 quarter-hours instead of 96?",
+      "passed": true,
+      "retrieval": true,
+      "citation": true,
+      "key_points": {
+        "Clock changes in Brussels time - spring day loses an hour (92), autumn day gains one (100).": true
+      },
+      "seconds": 26.2,
+      "answer": "A market day sometimes has 92 or 100 quarter-hours instead of 96 because of clock-change days [gold/models/marts/dim_date.sql]. Specifically, `quarters_in_day` is 92, 96 or 100 on clock-change days (Brussels time) [gold/models/marts/dim_date.sql]. UTC is used to keep the arithmetic simple, and the market day is kept to maintain the business view [docs/decisions.md].",
+      "retrieved": [
+        "0.602 gold/models/marts/dim_date.sql - Gold model dim_date",
+        "0.597 docs/decisions.md - Design decisions - 6. Everything in UTC, with the market day alongside",
+        "0.525 docs/decisions.md - Design decisions - 3. Bronze stores the raw response per market day",
+        "0.503 docs/decisions.md - Design decisions - 4. A 7-day revision window"
+      ],
+      "cited": [
+        "gold/models/marts/dim_date.sql",
+        "gold/models/marts/schema.yml",
+        "docs/decisions.md"
+      ],
+      "expected_sources": [
+        "gold/models/marts/dim_date.sql",
+        "gold/models/marts/schema.yml"
+      ]
+    },
+    {
+      "id": "C07",
+      "question": "What are AMR and IVA in the Core flow-based domain?",
+      "passed": true,
+      "retrieval": true,
+      "citation": true,
+      "key_points": {
+        "AMR is the adjustment added to a CNEC to reach the minimum RAM.": true,
+        "IVA is a reduction applied by a TSO during validation, with a justification.": true
+      },
+      "seconds": 48.5,
+      "answer": "AMR is a measure used to reach the minimum RAM target [gold/models/marts/mart_monthly_min_ram.sql]. IVA is a reduction applied after validation [gold/models/marts/mart_monthly_min_ram.sql]. According to source [gold/models/marts/mart_monthly_min_ram.sql], the `mart_monthly_min_ram` model indicates the percentage of CNEC-hours that meet the JAO minimum RAM target, along with the use of AMR and IVA [gold/models/marts/mart_monthly_min_ram.sql]. Source [docs/notas-fuentes.md] states that RTE needs AMR in 65% of the hours and applies IVA in 13.5% of the hours [docs/notas-fuentes.md].",
+      "retrieved": [
+        "0.512 gold/models/marts/mart_monthly_min_ram.sql - Gold model mart_monthly_min_ram",
+        "0.466 docs/report-design.md - Power BI report — design - Measures (DAX)",
+        "0.459 docs/report-design.md - Power BI report — design - Measures (DAX)",
+        "0.457 docs/notas-fuentes.md - Notas sobre las fuentes (lo aprendido con datos reales) - Primeros resultados de JAO con el año completo (01/10/2025–12/10/2026)"
+      ],
+      "cited": [
+        "gold/models/marts/mart_monthly_min_ram.sql",
+        "gold/models/marts/schema.yml",
+        "docs/notas-fuentes.md"
+      ],
+      "expected_sources": [
+        "gold/models/marts/mart_monthly_min_ram.sql",
+        "docs/notas-fuentes.md"
+      ]
+    },
+    {
+      "id": "C08",
+      "question": "What does the status \"provisional\" mean in the reconciliation mart?",
+      "passed": true,
+      "retrieval": true,
+      "citation": true,
+      "key_points": {
+        "The day is inside the 7-day revision window; the sources can still correct it.": true
+      },
+      "seconds": 42.2,
+      "answer": "The status \"provisional\" in the reconciliation mart means that the day falls within a 7-day revision window [gold/models/marts/mart_daily_flow_reconciliation.sql]. This is because ENTSO-E and Elia correct recent data, and days within this window may still be subject to correction [docs/decisions.md]. The gold model marks these days as \"provisional\" [gold/models/marts/mart_daily_flow_reconciliation.sql].",
+      "retrieved": [
+        "0.493 gold/models/marts/mart_daily_flow_reconciliation.sql - Gold model mart_daily_flow_reconciliation",
+        "0.455 docs/report-design.md - Power BI report — design - Measures (DAX)",
+        "0.405 gold/models/marts/fct_cnec_hourly.sql - Gold model fct_cnec_hourly",
+        "0.401 docs/decisions.md - Design decisions - 4. A 7-day revision window"
+      ],
+      "cited": [
+        "gold/models/marts/mart_daily_flow_reconciliation.sql",
+        "gold/models/marts/schema.yml",
+        "docs/decisions.md"
+      ],
+      "expected_sources": [
+        "gold/models/marts/mart_daily_flow_reconciliation.sql",
+        "docs/decisions.md"
+      ]
+    },
+    {
+      "id": "C09",
+      "question": "¿Por qué Luxemburgo no aparece en la comparación entre intercambio comercial y flujo físico?",
+      "passed": true,
+      "retrieval": true,
+      "citation": true,
+      "key_points": {
+        "Luxemburgo forma parte de la zona de oferta DE_LU y no tiene intercambio comercial propio.": true
+      },
+      "seconds": 44.1,
+      "answer": "Luxembourg does not appear in the comparison between commercial and physical exchange because it is part of the DE_LU zone and does not have its own commercial exchange [gold/models/marts/fct_border_commercial_physical.sql]. The model focuses on Belgian borders and the commercial exchange associated with them [gold/models/marts/fct_border_commercial_physical.sql].",
+      "retrieved": [
+        "0.588 gold/models/marts/fct_border_commercial_physical.sql - Gold model fct_border_commercial_physical",
+        "0.541 gold/models/marts/fct_border_flow_price.sql - Gold model fct_border_flow_price",
+        "0.525 docs/notas-fuentes.md - Notas sobre las fuentes (lo aprendido con datos reales) - Flujo físico frente a señal de precio (19/10/2026)",
+        "0.524 gold/models/marts/mart_monthly_unscheduled_flow.sql - Gold model mart_monthly_unscheduled_flow"
+      ],
+      "cited": [
+        "gold/models/marts/fct_border_commercial_physical.sql",
+        "gold/models/marts/schema.yml"
+      ],
+      "expected_sources": [
+        "gold/models/marts/fct_border_commercial_physical.sql"
+      ]
+    }
+  ]
+}

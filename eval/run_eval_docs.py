@@ -4,14 +4,15 @@ For every 'doc' question:
   retrieval  one of the expected source files is among the passages retrieved (automatic);
   citation   the answer cites one of the expected source files (automatic);
   key points share of the expected key points found in the answer. This one is judged by the same
-             local model, so read it as an indication and check the saved answers by eye.
+             local model that wrote the answer, so read it as an indication and check the saved
+             answers by eye.
 A question passes with retrieval, citation and at least two thirds of its key points.
 
 Routing: every 'sql' question must go to the data path and every 'doc' question to the concept path.
 
 Usage (from the project root):
-    python eval/run_eval_docs.py                              # default model
-    python eval/run_eval_docs.py --model qwen2.5-coder:14b
+    python eval/run_eval_docs.py                              # default writer model
+    python eval/run_eval_docs.py --writer-model qwen2.5:14b   # another model for reading and writing
     python eval/run_eval_docs.py --selftest                   # plumbing only, no Ollama needed
 """
 import argparse
@@ -51,7 +52,7 @@ def fake_embed(texts):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--model", default=llm.DEFAULT_MODEL)
+    parser.add_argument("--writer-model", default=llm.WRITER_MODEL, help="model that routes, reads and writes")
     parser.add_argument("--selftest", action="store_true")
     args = parser.parse_args()
 
@@ -69,7 +70,7 @@ def main():
     if args.selftest:
         assistant = GridAssistant(generate=fake_generate, retriever=Retriever(embed=fake_embed, model="selftest", index_path=None))
     else:
-        assistant = GridAssistant(model=args.model)
+        assistant = GridAssistant(writer_model=args.writer_model)
 
     try:
         routed = [(q, assistant.route(q["question"])) for q in questions if q["type"] in ("sql", "doc")]
@@ -82,7 +83,7 @@ def main():
             retrieved = [path for passage in result["retrieved"] for path in passage["sources"]]
             retrieval = any(path in retrieved for path in q["sources"])
             citation = any(path in result["cited"] for path in q["sources"])
-            covered = [assistant.generate([{"role": "system", "content": JUDGE}, {"role": "user", "content":
+            covered = [assistant.write([{"role": "system", "content": JUDGE}, {"role": "user", "content":
                        f"Answer:\n{result['answer']}\n\nPoint: {point}"}]).strip().upper().startswith("YES")
                        for point in q["key_points"]]
             passed = retrieval and citation and sum(covered) >= 2 * len(covered) / 3
@@ -113,8 +114,8 @@ def main():
         return
     RESULTS.mkdir(exist_ok=True)
     stamp = dt.datetime.now().strftime("%Y%m%d_%H%M")
-    out = RESULTS / f"docs_{re.sub(r'[^A-Za-z0-9.-]', '_', args.model)}_{stamp}.json"
-    out.write_text(json.dumps({"model": args.model, "embed_model": llm.EMBED_MODEL, "run_at": stamp,
+    out = RESULTS / f"docs_{re.sub(r'[^A-Za-z0-9.-]', '_', args.writer_model)}_{stamp}.json"
+    out.write_text(json.dumps({"writer_model": args.writer_model, "embed_model": llm.EMBED_MODEL, "run_at": stamp,
                                "summary": summary, "questions": records}, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"\nDetails in {out.relative_to(ROOT)}")
 

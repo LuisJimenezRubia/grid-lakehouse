@@ -8,6 +8,9 @@
 Usage (from the project root):
     python -m assistant.ask "What is the shadow price of a CNEC?"
     python -m assistant.ask "Which month had the highest average solar generation in Belgium?"
+
+Two models share the work: a code model writes the SQL, a general multilingual model routes the
+question, reads the documents and writes the answer.
 """
 import argparse
 import sys
@@ -33,19 +36,20 @@ WRITER = """Write the answer to the question from the query result. Rules:
 
 
 class GridAssistant:
-    def __init__(self, model=llm.DEFAULT_MODEL, generate=None, retriever=None):
-        self.generate = generate or (lambda messages: llm.chat(messages, model=model))
-        self.sql = SqlAssistant(model=model, generate=self.generate)
+    def __init__(self, model=llm.DEFAULT_MODEL, writer_model=llm.WRITER_MODEL, generate=None, retriever=None):
+        """generate(messages) -> reply, when given, replaces both models (tests)."""
+        self.write = generate or (lambda messages: llm.chat(messages, model=writer_model))
+        self.sql = SqlAssistant(model=model, generate=generate)
         self._docs, self._retriever = None, retriever
 
     @property
     def docs(self):                     # built on first use: the document index needs the embedding model
         if self._docs is None:
-            self._docs = DocAssistant(generate=self.generate, retriever=self._retriever)
+            self._docs = DocAssistant(generate=self.write, retriever=self._retriever)
         return self._docs
 
     def route(self, question):
-        reply = self.generate([{"role": "system", "content": ROUTER}, {"role": "user", "content": question}])
+        reply = self.write([{"role": "system", "content": ROUTER}, {"role": "user", "content": question}])
         return "concept" if "CONCEPT" in reply.upper() else "data"
 
     def ask(self, question):
@@ -55,7 +59,7 @@ class GridAssistant:
         result = self.sql.ask(question)
         if result["status"] == "ok":
             table = "\n".join(" | ".join(str(v) for v in row) for row in [result["columns"]] + result["rows"][:20])
-            answer = self.generate([{"role": "system", "content": WRITER}, {"role": "user", "content":
+            answer = self.write([{"role": "system", "content": WRITER}, {"role": "user", "content":
                                     f"Question: {question}\n\nSQL:\n{result['sql']}\n\nResult:\n{table}"}]).strip()
         elif result["status"] == "no_sql":
             answer = result["message"].split(":", 1)[-1].strip()
@@ -67,10 +71,11 @@ class GridAssistant:
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("question")
-    parser.add_argument("--model", default=llm.DEFAULT_MODEL)
+    parser.add_argument("--model", default=llm.DEFAULT_MODEL, help="model that writes the SQL")
+    parser.add_argument("--writer-model", default=llm.WRITER_MODEL, help="model that routes, reads and writes")
     args = parser.parse_args()
     try:
-        result = GridAssistant(model=args.model).ask(args.question)
+        result = GridAssistant(model=args.model, writer_model=args.writer_model).ask(args.question)
     except llm.LLMError as exc:
         sys.exit(str(exc))
     print(result["answer"], "\n")

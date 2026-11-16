@@ -7,12 +7,15 @@ import urllib.error
 import urllib.request
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
-DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5-coder:7b")
+DEFAULT_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5-coder:14b")
 # Ollama's default context window is too small for the schema description; without this the
 # prompt is silently truncated and the model never sees the last tables.
 NUM_CTX = int(os.environ.get("OLLAMA_NUM_CTX", "12288"))
 
 
+# A general multilingual model reads the documents, writes the answers and routes the questions;
+# the code model above only writes SQL.
+WRITER_MODEL = os.environ.get("OLLAMA_WRITER_MODEL", "gemma3:12b")
 # Multilingual embedding model: the project's notes are in Spanish and English, questions come in three languages.
 EMBED_MODEL = os.environ.get("OLLAMA_EMBED_MODEL", "bge-m3")
 
