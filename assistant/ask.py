@@ -14,8 +14,9 @@ question, reads the documents and writes the answer.
 """
 import argparse
 import sys
+import time
 
-from assistant import llm
+from assistant import audit, llm
 from assistant.doc_rag import DocAssistant
 from assistant.text_to_sql import Assistant as SqlAssistant
 
@@ -41,6 +42,8 @@ class GridAssistant:
         self.write = generate or (lambda messages: llm.chat(messages, model=writer_model))
         self.sql = SqlAssistant(model=model, generate=generate)
         self._docs, self._retriever = None, retriever
+        self.models = {"sql": model, "writer": writer_model, "embedding": llm.EMBED_MODEL}
+        self.audit = generate is None       # real runs are logged; tests with a stand-in model are not
 
     @property
     def docs(self):                     # built on first use: the document index needs the embedding model
@@ -54,6 +57,13 @@ class GridAssistant:
 
     def ask(self, question):
         """Returns a dict: route, answer, and the evidence (sql + rows, or retrieved + cited)."""
+        started = time.time()
+        result = self._answer(question)
+        if self.audit:
+            audit.record(question, result, self.models, time.time() - started)
+        return result
+
+    def _answer(self, question):
         if self.route(question) == "concept":
             return {"route": "concept", **self.docs.ask(question)}
         result = self.sql.ask(question)
@@ -78,6 +88,7 @@ def main():
         result = GridAssistant(model=args.model, writer_model=args.writer_model).ask(args.question)
     except llm.LLMError as exc:
         sys.exit(str(exc))
+    print("[AI-generated answer - check it against the SQL or the sources shown below]")
     print(result["answer"], "\n")
     if result["route"] == "concept":
         for passage in result["retrieved"]:

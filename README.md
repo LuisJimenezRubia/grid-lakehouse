@@ -101,6 +101,24 @@ python serve/export_gold.py                                     # serving tables
 
 Data lands in `data/` (not in the repository). Gold is a DuckDB file at `data/gold/grid.duckdb`.
 
+## Ask the data in plain language
+
+A local assistant answers questions about the gold layer and the documentation. A code model writes
+one read-only SQL query for data questions; concept questions are answered from the project's own
+documents with the file cited. It runs on [Ollama](https://ollama.com/), nothing leaves the machine.
+
+```bash
+ollama pull qwen2.5-coder:14b && ollama pull gemma3:12b && ollama pull bge-m3
+python -m assistant.ask "Which month had the highest average solar generation in Belgium?"
+python -m assistant.ask "What does against_price mean?"
+python eval/run_eval.py && python eval/run_eval_docs.py       # score it against the golden question set
+```
+
+On the 48-question golden set: 26 of 32 data questions right, all 6 traps declined, 7 of 9 concept
+questions passed. What these numbers do and do not show, the safeguards and the EU AI Act
+self-assessment are in the [system card](docs/assistant/model-card.md) and the
+[risk assessment](docs/assistant/risk-assessment.md).
+
 ## Design decisions
 
 The main choices and their trade-offs — local first, DuckDB instead of Spark, the revision window, warning
